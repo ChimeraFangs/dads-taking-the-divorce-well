@@ -10,7 +10,7 @@ define j = Character("Jonah Peskadito")
 define cas = Character("Caspian")
 
 default game_win = False
-
+default ring_caught = 0
 default fish_caught = 0
 
 # The game starts here.
@@ -359,6 +359,7 @@ label game_over:
         jump large1
 
     label win_label7:
+        $ fish_caught += 1
         "You caught a fish!"
         show salmonfuck
         "It's a barbed salmon!"
@@ -381,6 +382,7 @@ label game_over:
         jump large2
 
     label win_label8:
+        $ fish_caught += 1
         "You caught a fish!"
         show saintfish at slightright
         "It's a Saint Fish!"
@@ -403,6 +405,7 @@ label game_over:
         jump large3
 
     label win_label9:
+        $ fish_caught += 1
         "You caught a fish!"
         show falseanchor at slightright
         "It's a False Anga!"
@@ -431,7 +434,7 @@ label game_over:
     cas "That's great! I feel as though I've only gotten hungrier..."
     cas "Let me see..."
 hide fishuh_smile
-if fish_caught >=2:
+if fish_caught >=4:
     show fishuh_smile
     cas "This should be good."
     cas "Thank you, Jonah."
@@ -444,15 +447,18 @@ else:
     jump game_over
 
     label day2_complete:
-    j "Your welcome!" 
-    show 
+    show fishuh_smile
+    j "Your welcome!"
     cas "No no, thank you."
+    hide fishuh_smile
     show fishuh_scary
     cas "Even though I've threatened you into this..."
     hide fishuh_scary
-    show fishuh_shockblush
+    show fishuh_confusedblush
     cas "You've been... weirdly nice."
     cas "Not just because i give gifts either."
+    hide fishuh_confusedblush
+    show fishuh_sad
     cas "Truly, thank you. I won't stay for too long. I'm moving off soon to another part of the sea."
     cas "I figured I would toy with a human, blub blub.."
     cas "But you've been so kind."
@@ -461,14 +467,139 @@ else:
     cas "And I thank you for that. I'm not exactly... anyone else."
     n "He feels.. strangely sad the sea monster is moving off."
     j "To me, you are."
+    show fishuh_shockblush
     cas "...really?"
     j "Yeah! I've thought I was content with just the sea and my routine but... seeing you has been..."
 
     menu:
-        "Amazing":
-            
+        "Amazing?":
+            j "Amazing!"
+            j "You've been so amazing!"
+            j "I never thought I could actually find someone who likes what I do!"
+        "Lovely?":
+            j "Lovely!"
+            j "You've been so lovely!"
+            j "You've been so kind even if you're a little scary!"
+
+    cas "Really????"
+    j "Yeah!"
+    j "I guess what I'm trying to say is that I.. never thought I could actually like interacting with people."
+    cas "But you're so... normal and helpful!"
+    j "Eh."
+    hide fishuh_shockblush
+    show fishuh_confused
+    cas "EH????"
+    cas "But you're so!-"
+    hide fishuh_confused
+    show fishuh_polite1
+    "Y'know???"
+    hide fishuh_polite1
+    show fishuh_confused
+    n "Jonah laughs a bit."
+    j "Say, what if I'm so.."
+    n "He gestures, giggles a bit."
+    j "Can I catch you a final thing tomorrow?"
+    show fishuh_think
+    pause 1.0
+    show fishuh_thinkblush
+    cas "Yeah... sure."
+    cas "I'll... I'll see you tomorrow."
+    j "I'll see you too!"
+    scene black
+    "DAY 3"
+    scene bg_home
+    n "Jonah quickly runs to the docks."
+    scene bg_docks
+    j "One final time, for Caspian! I'll find him something he likes!"
+    j "This'll be my hardest catch!"
+    show fishingrod
+    $ slider.start(speed=58,jump_win="win_labellast", jump_lose="lose_labellast")
+    if has_collided == True:
+        jump win_label9
+    elif has_collided == False:
+        jump lose_label9
         
-   
 
+    label lose_labellast:
+        "You caught a...!"
+        "Nothing?"
+        "Oh, no.. you even used your best bait. What will you do?"
+        jump lastthing
 
+    label win_labellast:
+        "You caught a..."
+        show weddingring at slightright
+        "WEDDING RING!"
+        $ ring_caught += 1
+        jump lastthing
+        
+    
+    label lastthing:
+        hide falseanchor
+        j "I'll have to tell him how I feel!"
+        n "Jonah runs the best he can to the beach"
+        scene bg_beach
+        if ring_caught >=1:
+            jump wedding
+        else: 
+            jump bad_end
+
+        label wedding:
+            show fishuh_sad
+            cas "Good evening, Jonah.."
+            n "Jonah heaves, smiling at the very sight of him."
+            show fishuh_think
+            cas "Woah! Are you okay!"
+            j "Yes! Yes! More than okay!"
+            hide fishuh_think
+            show fishuh_smile
+            cas "How so?"
+            j "Means I didn't miss you."
+            show fishuh_shockblush
+            cas "..!"
+            n "Jonah gets down on one knee."
+            j "I just wanted to tell you."
+            j "You're a wonderful guy and I'd love to marry you!"
+            hide fishuh_shockblush
+            show fishuh_confusedblush
+            cas "Marry?"
+            j "Yes!"
+            j "Marry!"
+            cas "What is that?"
+            n "This catches Jonah off guard, and he laughs."
+            show fishuh_confused
+            cas "What's so funny?"
+            j "No, I just-"
+            j "I should've known. It's a human thing. Where you swear to be eachothers?"
+            cas "Mating?"
+            j "WOaah- woah woah----!"
+            j "It usually takes a lot of time but.. I just really like you so..."
+            cas "Explain this marriage more to me..."
+            scene black
+            pause 1.0
+            cas "I see... Yes.. yes.. Too soon..."
+            scene bg_beach
+            show fishuh_smile
+            j "So, uhm. Maybe this can just be a sign of... being something? I don't know..."
+            cas "Mates."
+            j "I guess???"
+            n "He laughs, flustered."
+            n "Jonah jumps as Caspian reaches out to take and put on the ring."
+            show fishuh_thinkblush
+            j "You--"
+            cas "I must admit, I'm rather.. confused. But I'd like to understand things more with you."
+            j "Really?"
+            cas "Mhm. Though I'd like if we pretended to be married. I like this concept, blub blub."
+            scene black
+            show marriedlol
+            pause 1.5
+            n "And so they did."
+            n "Wouldn't you know it.. Blue blushes too."
+        return
+
+        label bad_end:
+            scene bg_beach
+            n "He makes it to the beach..."
+            n "Far too late."
+            n "He looks at the seaside. Alone, again."
 return
